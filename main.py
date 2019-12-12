@@ -29,9 +29,15 @@ df = calc.opengap(df)
 df = calc.smaclose(df, 10, 3)
 
 
-# how often do gaps fill?
+# how often do gaps fill for different sized gaps
 # break down the fill scenarios
 # is a SMA oscillator useful
 # how many up and down days in a row occur
-
-df.head(50)
+#df = df[(df['gapclosed'] == True) & (df['opengap_perc'] < 0.5)]
+df = df[(df['opengap_perc'] > -0.5) & (df['opengap_perc'] < 0.5)]
+table = pd.pivot_table(df, index=['gapclosed'], aggfunc='count')
+table
+ 
+#hist = df['opengap_perc'].plot(kind='hist',bins=50,figsize=(12,6))
+#hist.plot()
+#plt.show()
